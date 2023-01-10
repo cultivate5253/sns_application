@@ -1,6 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
+import { Follow } from './components/Follow';
+import { Post } from './components/Post';
+import { DM } from './components/DM';
+import { Auth } from './components/Auth';
 import './App.css';
 
 function App() {
@@ -51,6 +55,10 @@ function App() {
           </a>
         </span>
       </header>
+      <Follow />
+      <Post />
+      <DM />
+      <Auth />
     </div>
   );
 }
