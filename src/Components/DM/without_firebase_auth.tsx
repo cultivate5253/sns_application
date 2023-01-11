@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { PrismaClient } from "@prisma/client";
 
 interface Props {
   userId: string;
@@ -10,6 +11,7 @@ const DM: React.FC<Props> = (props) => {
   const { userId, currentUserId } = props;
   const [message, setMessage] = useState("");
   const [conversation, setConversation] = useState<any[]>([]);
+  const prisma = new PrismaClient(); // create a new Prisma client
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);

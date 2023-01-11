@@ -19,7 +19,7 @@ if (harmfulWords.includes(searchWord)) {
   // 有害ワードリストに含まれていない場合は、検索を実行する
 
   // 検索クエリを作成する
-  const query = firestore
+  const query = firestore()
     .collection("tweets")
     .where("text", "array-contains", searchWord);
 
