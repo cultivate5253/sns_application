@@ -10,8 +10,8 @@ RUN npm run build
 FROM node:14-alpine
 COPY --from=build /app/dist /app
 COPY --from=build /app/node_modules node_modules
-ENV DATABASE_HOST=db
-ENV DATABASE_USER=your-username
-ENV DATABASE_PASSWORD=your-password
-ENV DATABASE_NAME=your-database-name
+ENV DATABASE_HOST=$DATABASE_HOST
+ENV DATABASE_USER=$DB_USER
+ENV DATABASE_PASSWORD=$DATABASE_PASSWORD
+ENV DATABASE_NAME=$DB_NAME
 CMD ["npm", "start"]

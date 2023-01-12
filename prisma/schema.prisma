@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id     Int     @id @default(autoincrement())
+  name        String  @unique
+  email       String  @unique
+  password    String
+  profile_picture String
+  bio         String
+}
+
+model Tweets {
+  tweet_id Int     @id @default(autoincrement())
+  user_id  Int     @unique
+  text     String
+  image    String
+  date_created DateTime
+  likes       Int
+  retweets    Int
+  User        User   @relation(fields: [user_id], references: [user_id])
+}
+
+model Follows {
+id Int @id @default(autoincrement())
+user User @relation(fields: [userId], references: [id])
+userId Int
+following User @relation(fields: [followingId], references: [id])
+followingId Int
+date_created DateTime
+}
+
+model Direct_Messages {
+id Int @id @default(autoincrement())
+sender User @relation(fields: [senderId], references: [id])
+senderId Int
+recipient User @relation(fields: [recipientId], references: [id])
+recipientId Int
+message String
+date_sent DateTime
+}
+
+model Search {
+id Int @id @default(autoincrement())
+query String
+date_searched DateTime
+user User @relation(fields: [userId], references: [id])
+userId Int
+}

@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const connection = require('./database');
+const connection = require('../Database/database');
 const router = express.Router();
 
 type LoginBody = {
