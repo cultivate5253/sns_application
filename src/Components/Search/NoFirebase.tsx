@@ -22,9 +22,14 @@ margin: theme.spacing(1),
 );
 
 export const Search: React.FC = () => {
+
+  interface SearchResult {
+    id: string;
+    title: string;
+  }
   const classes = useStyles();
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState<SearchResult[]>([]);
   const [error, setError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
