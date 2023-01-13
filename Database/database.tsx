@@ -1,18 +1,18 @@
 import mysql, { Connection, OkPacket } from 'mysql2/promise';
 import { FC, useEffect } from 'react';
 
-interface IUsers {
+interface Users {
   id: number;
   name: string;
   email: string;
   password: string;
 }
-interface ITweets {
+interface Tweets {
   id: number;
   content: string;
   user_id: number;
 }
-interface IMessages {
+interface Messages {
   id: number;
   content: string;
   sender_id: number;

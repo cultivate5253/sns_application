@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { PrismaClient } from "@prisma/client";
+import { TextField, Button } from "@material-ui/core";
+
 
 interface Props {
   isAuthenticated: boolean;
@@ -64,21 +66,34 @@ const Auth: React.FC<Props> = (props) => {
   return (
     <div>
       {isAuthenticated ? (
-        <button onClick={() => setIsAuthenticated(false)}>Logout</button>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => setIsAuthenticated(false)}
+        >
+          Logout
+        </Button>
       ) : (
         <form>
-          <input type="text" value={email} onChange={handleEmailChange} />
-          <input
+          <TextField
+            label="Email"
+            value={email}
+            onChange={handleEmailChange}
+            variant="outlined"
+          />
+          <TextField
+            label="Password"
             type="password"
             value={password}
             onChange={handlePasswordChange}
+            variant="outlined"
           />
-          <button type="submit" onClick={handleLogin}>
+          <Button variant="contained" color="primary" onClick={handleLogin}>
             Login
-          </button>
-          <button type="submit" onClick={handleSignup}>
+          </Button>
+          <Button variant="contained" color="primary" onClick={handleSignup}>
             Signup
-          </button>
+          </Button>
         </form>
       )}
     </div>

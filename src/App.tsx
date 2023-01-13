@@ -6,9 +6,16 @@ import { Post } from './components/Post';
 import { DM } from './components/DM';
 import { Auth } from './components/Auth';
 import './App.css';
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";　　//ThemeProviderは、カスタマイズしたスタイルを適用するために使う
+
+
+const theme = createTheme({   //独自のスタイルを設定
+  // 追加のCSSスタイル
+});
 
 function App() {
   return (
+  <ThemeProvider theme={theme}>
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -58,8 +65,11 @@ function App() {
       <Follow />
       <Post />
       <DM />
+      
       <Auth />
+  
     </div>
+  </ThemeProvider>
   );
 }
 
