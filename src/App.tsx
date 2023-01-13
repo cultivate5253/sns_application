@@ -14,6 +14,11 @@ const theme = createTheme({
 });
 
 function App() {
+  const [isAuth, setIsAuth] = useState(false);
+  const [tweetId, setTweetId] = useState("");
+  const [userId, setUserId] = useState("");
+   const [currentUserId, setCurrentUserId] = useState("");
+
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
@@ -23,12 +28,12 @@ function App() {
             Edit <code>src/App.tsx</code> and save to reload.
           </p>
         </header>
-        <Follow />
-        <DM />
+        <Follow userId={userId} currentUserId={currentUserId} />
+        <DM userId={userId} currentUserId={currentUserId} />
         <Search />
         <Post />
-        <FavRT />
-        <Auth />
+        <FavRT tweetId={tweetId} userId={userId} />
+        <Auth isAuthenticated={isAuth} setIsAuthenticated={setIsAuth} />
       </div>
     </ThemeProvider>
   );
