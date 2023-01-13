@@ -22,7 +22,7 @@ const { userId, currentUserId } = props;
 const handleFollow = async () => {
 try {
 // Send follow request to server
-const res = await axios.patch("/api/users", {
+const res = await axios.patch("/users", {
 userId,
 currentUserId,
 follow: true,
@@ -42,7 +42,7 @@ follow: true,
 const handleUnfollow = async () => {
 try {
 // Send unfollow request to server
-const res = await axios.patch("/api/users", {
+const res = await axios.patch("/users", {
 userId,
 currentUserId,
 unfollow: true,

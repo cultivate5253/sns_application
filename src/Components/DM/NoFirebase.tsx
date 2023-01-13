@@ -59,7 +59,7 @@ useEffect(() => {
 const fetchConversation = async () => {
 try {
 // Get conversation from server
-const res = await axios.get(/api/messages/${userId}/${currentUserId});
+const res = await axios.get(`/api/messages/${userId}/${currentUserId}`);
 const data = res.data;
 setConversation(data);
 } catch (err) {

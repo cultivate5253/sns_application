@@ -120,4 +120,65 @@ router.post(
   }
 );
 
+router.patch(
+  "/users",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      // Extract the userId, currentUserId, and follow/unfollow flag from the request body
+      const { userId, currentUserId, follow, unfollow } = req.body;
+      // Check if the current user is trying to follow themselves
+      if (userId === currentUserId) {
+        return res.status(400).send({ message: "Cannot follow yourself" });
+      }
+      // Check if the follow flag is set
+      if (follow) {
+        // Check if the current user is already following the target user
+        const existingFollow = await prisma.follow.findOne({
+          where: {
+            followerId: currentUserId,
+            followingId: userId,
+          },
+        });
+        if (existingFollow) {
+          return res
+            .status(409)
+            .send({ message: "You are already following this user" });
+        }
+        // Create a new follow relationship in the database
+        await prisma.follow.create({
+          data: {
+            follower: { connect: { id: currentUserId } },
+            following: { connect: { id: userId } },
+          },
+        });
+        return res.send({ message: "Successfully followed user" });
+      }
+      // Check if the unfollow flag is set
+      if (unfollow) {
+        // Check if the current user is already following the target user
+        const existingFollow = await prisma.follow.findOne({
+          where: {
+            followerId: currentUserId,
+            followingId: userId,
+          },
+        });
+        if (!existingFollow) {
+          return res
+            .status(409)
+            .send({ message: "You are not following this user" });
+        }
+        // Delete the follow relationship from the database
+        await prisma.follow.delete({
+          where: {
+            id: existingFollow.id,
+          },
+        });
+        return res.send({ message: "Successfully unfollowed user" });
+      }
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 export default router;
