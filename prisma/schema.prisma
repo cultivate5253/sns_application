@@ -1,58 +1,63 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url = env("DB_URL")
 }
 
 model User {
-  user_id     Int     @id @default(autoincrement())
-  name        String  @unique
-  email       String  @unique
-  password    String
-  profile_picture String
-  bio         String
+  id Int @id @default(autoincrement())
+  name String
+  email String @unique
+  password String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  follows Follows[] @relation(name: "follower")
+  sent_direct_messages Direct_Messages[] @relation(name: "sender_user")
+  received_direct_messages Direct_Messages[] @relation(name: "recipient_user")
+  search Search[] @relation(name: "search_user")
+  tweets Tweets[] @relation(name: "user_tweet", references: [id])
 }
 
+
+
+
 model Tweets {
-  tweet_id Int     @id @default(autoincrement())
-  user_id  Int     @unique
-  text     String
-  image    String
+  id Int @id @default(autoincrement())
+  user User @relation(name: "user_tweet", fields: [user_id], references: [id])
+  user_id Int
+  text String
+  image String
   date_created DateTime
-  likes       Int
-  retweets    Int
-  User        User   @relation(fields: [user_id], references: [user_id])
+  likes Int
+  retweets Int
 }
 
 model Follows {
-id Int @id @default(autoincrement())
-user User @relation(fields: [userId], references: [id])
-userId Int
-following User @relation(fields: [followingId], references: [id])
-followingId Int
-date_created DateTime
+    id Int @id @default(autoincrement())
+    follower User @relation(name: "follower", fields: [follower_id], references: [id])
+    follower_id Int
+    following_user User @relation(name: "following_user", fields: [following_user_id], references: [id])
+    following_user_id Int
+    date_created DateTime
 }
 
 model Direct_Messages {
-id Int @id @default(autoincrement())
-sender User @relation(fields: [senderId], references: [id])
-senderId Int
-recipient User @relation(fields: [recipientId], references: [id])
-recipientId Int
-message String
-date_sent DateTime
+  id Int @id @default(autoincrement())
+  sender_user User @relation(name: "sender_user", fields: [sender_id], references: [id])
+  sender_id Int
+  recipient_user User @relation(name: "recipient_user", fields: [recipient_id], references: [id])
+  recipient_id Int
+  message String
+  date_sent DateTime
 }
 
 model Search {
-id Int @id @default(autoincrement())
-query String
-date_searched DateTime
-user User @relation(fields: [userId], references: [id])
-userId Int
+  id Int @id @default(autoincrement())
+  query String
+  date_searched DateTime
+  user User @relation(name: "search_user", fields: [user_id], references: [id])
+  user_id Int
 }

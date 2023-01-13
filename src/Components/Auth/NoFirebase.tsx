@@ -3,7 +3,6 @@ import axios from "axios";
 import { PrismaClient } from "@prisma/client";
 import { TextField, Button } from "@material-ui/core";
 
-
 interface Props {
   isAuthenticated: boolean;
   setIsAuthenticated: (isAuthenticated: boolean) => void;
@@ -26,6 +25,22 @@ export const Auth: React.FC<Props> = (props) => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      // Use Prisma to check if user exists and if their password matches
+      const user = await prisma.user.findOne({
+        where: {
+          email,
+        },
+      });
+      if (!user) {
+        console.error("User not found");
+        return;
+      }
+      const passwordMatches = await bcrypt.compare(password, user.password);
+      if (!passwordMatches) {
+        console.error("Incorrect password");
+        return;
+      }
+
       // Send login request to server
       const res = await axios.post("/api/login", {
         email,
@@ -46,6 +61,15 @@ export const Auth: React.FC<Props> = (props) => {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      // Use Prisma to create a new user
+      const hashedPassword = await bcrypt.hash(password, 10);
+      await prisma.user.create({
+        data: {
+          email,
+          password: hashedPassword,
+        },
+      });
+
       // Send signup request to server
       const res = await axios.post("/api/signup", {
         email,
@@ -99,5 +123,4 @@ export const Auth: React.FC<Props> = (props) => {
     </div>
   );
 };
-
 
