@@ -1,7 +1,28 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+
+const useStyles = makeStyles((theme: Theme) =>
+createStyles({
+form: {
+display: "flex",
+alignItems: "center",
+},
+textField: {
+marginLeft: theme.spacing(1),
+marginRight: theme.spacing(1),
+width: "100%",
+},
+button: {
+margin: theme.spacing(1),
+},
+})
+);
 
 const Search: React.FC = () => {
+  const classes = useStyles();
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [error, setError] = useState("");
@@ -32,24 +53,39 @@ const Search: React.FC = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
+      <form onSubmit={handleSubmit} className={classes.form}>
+        <TextField
+          id="query"
+          label="Search"
+          className={classes.textField}
           value={query}
           onChange={handleChange}
-          placeholder="Search"
+          margin="normal"
+          variant="outlined"
         />
-        <button type="submit">Search</button>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={classes.button}
+        >
+          Search
+        </Button>
       </form>
       {error && <p>{error}</p>}
-      {results.map((result) => (
-        <div key={result.id}>
-          <h3>{result.title}</h3>
-          <p>{result.body}</p>
+      {results.length > 0 && (
+        <div>
+          <h2>Results</h2>
+          <ul>
+            {results.map((result) => (
+              <li key={result.id}>{result.title}</li>
+            ))}
+          </ul>
         </div>
-      ))}
+      )}
     </div>
   );
 };
 
 export default Search;
+
