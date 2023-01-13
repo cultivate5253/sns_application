@@ -1,11 +1,12 @@
 import React from "react";
 import logo from "./logo.svg";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-import { DM } from "./components/DM";
-import { Search } from "./components/Search";
-import { Post } from "./components/Post";
-import { FavRT } from "./components/FavRT";
-import { Auth } from "./components/Auth";
+import { DM } from "./Components/DM/NoFirebase";
+import { Search } from "./Components/Search/NoFirebase";
+import { Post } from "./Components/Post/NoFirebase";
+import { FavRT } from "./Components/FavRT/NoFirebase";
+import { Auth } from "./Components/Auth/NoFirebase";
+import { Follow } from "./Components/Follow/NoFirebase";
 import "./App.css";
 
 const theme = createTheme({
@@ -22,6 +23,7 @@ function App() {
             Edit <code>src/App.tsx</code> and save to reload.
           </p>
         </header>
+        <Follow />
         <DM />
         <Search />
         <Post />
