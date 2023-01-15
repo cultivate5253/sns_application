@@ -1,4 +1,5 @@
 {
+  
   "name": "sns",
   "version": "0.1.0",
   "private": true,
@@ -12,6 +13,7 @@
     "@reduxjs/toolkit": "^1.9.1",
     "@types/firebase": "^3.2.1",
     "@types/jest": "^29.2.5",
+    "@types/jsonwebtoken": "^9.0.1",
     "@types/node": "^18.11.18",
     "@types/react": "^16.8.0",
     "@types/react-dom": "^16.8.0",
@@ -30,7 +32,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "try": "ts-node -r tsconfig-paths/register Express/express.ts"
   },
   "eslintConfig": {
     "extends": [
@@ -49,5 +52,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/express": "^4.17.15",
+    "ts-node": "^10.9.1"
+  },
+  "type": "module"
 }
