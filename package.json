@@ -1,5 +1,4 @@
 {
-  
   "name": "sns",
   "version": "0.1.0",
   "private": true,
@@ -25,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-scripts": "5.0.1",
+    "tsconfig-paths": "^4.1.2",
     "typescript": "^4.9.4",
     "web-vitals": "^3.1.1"
   },
@@ -33,7 +33,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "try": "ts-node -r tsconfig-paths/register Express/express.ts"
+    "try": "ts-node -r tsconfig-paths/register src/Express/express.ts"
   },
   "eslintConfig": {
     "extends": [
