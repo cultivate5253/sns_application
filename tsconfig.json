@@ -21,6 +21,9 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
-, "src/firebase.tsx]
-, "src/Components/Post/Post.tsx
+    "src"],
+    
+"paths": {
+    "@/": ["./src/"]
+  },
+}

@@ -18,7 +18,7 @@ margin: theme.spacing(1),
 );
 
 export const Post: React.FC = () => {
-const classes = useStyles();
+
 const [text, setText] = useState("");
 const [error, setError] = useState("");
 

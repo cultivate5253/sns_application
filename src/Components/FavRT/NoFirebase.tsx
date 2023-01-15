@@ -11,14 +11,17 @@ tweetId: string;
 userId: string;
 }
 const useStyles = makeStyles((theme: Theme) =>
-createStyles({
-favorite: {
-color: theme.palette.error.main,
-},
-retweet: {
-color: theme.palette.primary.main,
-},
-})
+  createStyles({
+    button: {
+      margin: theme.spacing(1),
+    },
+    favorite: {
+      color: theme.palette.error.main,
+    },
+    retweet: {
+      color: theme.palette.primary.main,
+    },
+  })
 );
 export const FavRT: React.FC<Props> = (props) => {
   
@@ -76,12 +79,10 @@ export const FavRT: React.FC<Props> = (props) => {
   checkFavorited();
   checkRetweeted();
   }, []);
-  const useStyles = makeStyles((theme) => ({
-  button: {
-  margin: theme.spacing(1),
-  },
-  }));
   
+  
+  const classes = useStyles();
+
   return (
     <div>
       <IconButton onClick={handleFavorite}>
