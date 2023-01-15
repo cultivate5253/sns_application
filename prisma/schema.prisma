@@ -18,16 +18,13 @@ model User {
   sent_direct_messages Direct_Messages[] @relation(name: "sender_user")
   received_direct_messages Direct_Messages[] @relation(name: "recipient_user")
   search Search[] @relation(name: "search_user")
-  tweets Tweets[] @relation(name: "user_tweet", references: [id])
+  tweets Tweets[] @relation(name: "tweet_user")
 }
-
-
-
 
 model Tweets {
   id Int @id @default(autoincrement())
-  user User @relation(name: "user_tweet", fields: [user_id], references: [id])
-  user_id Int
+  tweet_user_id Int
+  tweet_user User @relation(fields: id , references: tweet_user_id)
   text String
   image String
   date_created DateTime
@@ -37,19 +34,19 @@ model Tweets {
 
 model Follows {
     id Int @id @default(autoincrement())
-    follower User @relation(name: "follower", fields: [follower_id], references: [id])
     follower_id Int
-    following_user User @relation(name: "following_user", fields: [following_user_id], references: [id])
+    follower User @relation(fields: {id: {references: follower_id}})
     following_user_id Int
+    following_user User @relation(fields: {id: {references: following_user_id}})
     date_created DateTime
 }
 
 model Direct_Messages {
   id Int @id @default(autoincrement())
-  sender_user User @relation(name: "sender_user", fields: [sender_id], references: [id])
-  sender_id Int
-  recipient_user User @relation(name: "recipient_user", fields: [recipient_id], references: [id])
-  recipient_id Int
+  sender_user_id Int
+  sender_user User @relation(fields: id, references: sender_user_id)
+  recipient_user_id Int
+  recipient_user User @relation(fields: id ,references: recipient_user_id)
   message String
   date_sent DateTime
 }
@@ -58,6 +55,6 @@ model Search {
   id Int @id @default(autoincrement())
   query String
   date_searched DateTime
-  user User @relation(name: "search_user", fields: [user_id], references: [id])
-  user_id Int
+  search_user_id Int
+  search_user User @relation(fields: id, references: search_user_id)
 }

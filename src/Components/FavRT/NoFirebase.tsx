@@ -21,7 +21,7 @@ color: theme.palette.primary.main,
 })
 );
 export const FavRT: React.FC<Props> = (props) => {
-  const classes = useStyles();
+  
   const { tweetId, userId } = props;
   const [isFavorited, setIsFavorited] = useState(false);
   const [isRetweeted, setIsRetweeted] = useState(false);
@@ -56,7 +56,7 @@ export const FavRT: React.FC<Props> = (props) => {
   const checkFavorited = async () => {
   try {
   // Check if tweet is favorited
-  const res = await axios.get(/api/favorite/${tweetId}/${userId});
+  const res = await axios.get(`/api/favorite/${tweetId}/${userId}`);
   const data = res.data;
   setIsFavorited(data.isFavorited);
   } catch (err) {
@@ -66,7 +66,7 @@ export const FavRT: React.FC<Props> = (props) => {
   const checkRetweeted = async () => {
   try {
   // Check if tweet is retweeted
-  const res = await axios.get(/api/retweet/${tweetId}/${userId});
+  const res = await axios.get(`/api/retweet/${tweetId}/${userId}`);
   const data = res.data;
   setIsRetweeted(data.isRetweeted);
   } catch (err) {
@@ -81,8 +81,7 @@ export const FavRT: React.FC<Props> = (props) => {
   margin: theme.spacing(1),
   },
   }));
-  const classes = useStyles();
-
+  
   return (
     <div>
       <IconButton onClick={handleFavorite}>

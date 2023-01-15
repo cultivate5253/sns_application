@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { PrismaClient } from "@prisma/client";
 import { TextField, Button } from "@material-ui/core";
+import bcrypt from 'bcrypt';
 
 interface Props {
   isAuthenticated: boolean;

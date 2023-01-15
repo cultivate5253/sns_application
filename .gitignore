@@ -22,3 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .env
+src/Components/Post/Post.tsx
+src/Components/Auth/Auth.tsx
+src/Components/FavRT/FavRT.tsx
+src/Components/Follow/Follow.tsx
+src/Components/Search/Search.tsx

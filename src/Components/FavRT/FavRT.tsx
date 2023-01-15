@@ -1,3 +1,5 @@
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 // ユーザーID
 const userId = firebase.auth().currentUser.uid;
@@ -14,8 +16,6 @@ firebase
     [tweetId]: true
   }, { merge: true });
 
-// ユーザーID
-const userId = firebase.auth().currentUser.uid;
 
 // お気に入り情報を取得する
 const favorites = await firebase
@@ -27,11 +27,8 @@ const favorites = await firebase
 // お気に入りされたツイートのIDの一覧
 const favoriteIds = Object.keys(favorites.data());
 
-// ユーザーID
-const userId = firebase.auth().currentUser.uid;
 
-// ツイートID
-const tweetId = 'tweet-id';
+
 
 // リツイート情報を保存する
 firebase
